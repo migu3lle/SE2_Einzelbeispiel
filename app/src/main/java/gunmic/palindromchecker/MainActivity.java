@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-                String inputString = inputText.getText().toString();
+                String inputString = inputText.getText().toString().toLowerCase();  //Lower case to ignore case of Palindrom
 
                 if(!isEmpty(inputString)){
                     if(hasLength(inputString)){
