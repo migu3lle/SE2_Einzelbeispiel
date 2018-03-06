@@ -8,6 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,15 +21,51 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final TextView titleTextView;
+        TextView inputTextView;
+        final EditText inputText;
+        final TextView outputText;
+
+        titleTextView = findViewById(R.id.titleTextView);
+        inputTextView = findViewById(R.id.inputTextView);
+        inputText = findViewById(R.id.inputText);
+        outputText = findViewById(R.id.outputText);
+
+        Button checkButton = (Button) findViewById(R.id.checkButton);
+        checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View view){
+                String inputString = inputText.getText().toString();
+
+                if(!isEmpty(inputString)){
+                    if(hasLength(inputString)){
+                        if(isPalindrom(inputString)){
+                            outputText.setText("Palindrom!");
+                        }
+                        else
+                            outputText.setText("Kein Palindrom!");
+                    }
+                    else
+                        outputText.setText("Text zu kurz (>=5)!");
+                }
+                else
+                    outputText.setText("Kein Text eingegeben!");
             }
         });
     }
+
+    public boolean isPalindrom(String inputString){
+        return inputString.equals(new StringBuilder(inputString).reverse().toString());
+    }
+
+    public boolean hasLength(String inputString){
+        return inputString.length() >= 5;
+    }
+
+    public boolean isEmpty(String inputString){
+        return inputString.length() == 0;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
